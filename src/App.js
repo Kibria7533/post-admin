@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {BrowserRouter as Router,Routes, Route} from "react-router-dom";
+import Dashboard from './components/dashboard/Dashboard'
+import {useState} from "react";
+import ManagePost from './components/post/ManagePost'
+import ManageCatagory from "./components/catagory/ManageCatagory";
+import ManageUser from "./components/user/ManageUser";
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React3
-        </a>
-      </header>
-    </div>
+// const [posts,setPosts]=useState('')
+// const getPosts=async ()=>{
+//    const res=await axios.get('/all-post')
+//     console.log(res)
+// }
+return (
+    <>
+        <Router>
+            <Routes>
+                <Route path='/' element={<Dashboard /> }/>
+                <Route path='/manage-post' element={<ManagePost />}/>
+                <Route path='/manage-catagory' element={<ManageCatagory />}/>
+                <Route path='/manage-user' element={<ManageUser />}/>
+            </Routes>
+        </Router>
+
+      </>
   );
 }
 

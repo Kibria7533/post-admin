@@ -1,0 +1,21 @@
+.button{
+    border: none;
+    border-radius: 30px;
+    background-color: forestgreen;
+    margin-right: 5%;
+    padding: 1.4% 4%;
+    background-color: white;
+    height: 3.5rem;
+    top: 10%;
+    position: relative;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor:pointer;
+    padding: 5px 38px;
+    border-radius: 8%;
+    outline: none;
+}
+.button:hover{
+    border:1px solid #4d6632;
+    background: none;
+}
