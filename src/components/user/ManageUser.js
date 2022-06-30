@@ -1,13 +1,26 @@
 import Sidebar from "../sidebar/Sidebar";
 import Navbar from "../navbar/Navbar";
-import Table from "../table/Table";
-import {useState} from 'react'
-import Modal from "../modal/Modal";
+import CatagoryTable from "../table/CatagoryTable";
+import {useEffect, useState} from 'react'
+import CatagoryModal from "../modal/CatagoryModal";
+import UserTable from "../table/UserTable";
+import axios from "axios";
 export default function ManageUser() {
-    const [addUser,setAddUser]=useState(false)
-    const userModal=()=>{
-        setAddUser(!addUser)
+    const [users,setUsers]=useState([])
+    const [id,setId]=useState('')
+
+    const getUser=async ()=>{
+        await axios.get('http://localhost:5000/get-all-user').then(data=>{
+            setUsers(data.data)
+        })
     }
+    const deleteUser=async(id)=> {
+        await axios.delete(`http://localhost:5000/delete-user/${id}`)
+        getUser()
+    }
+    useEffect(()=>{
+        getUser()
+    },[])
     return(
         <>
             <div className="wrapper container-fluid">
@@ -15,33 +28,12 @@ export default function ManageUser() {
                     <Sidebar />
                     <div className='col-md-10'>
                         <Navbar/>
-                        <table className="table table-hover col-md-10">
-                            <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Post-Title</th>
-                                <th scope="col">Manage Buttons</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td><button>Delete</button>/<button onClick={()=>userModal()}>Add User</button></td>
-                            </tr>
-
-                            </tbody>
-                        </table>
+                        <UserTable users={users} deleteUser={deleteUser}/>
                     </div>
 
                 </div>
             </div>
-            {
-                addUser&&(
-                    <Modal setAddUser={setAddUser} addUser={addUser} />
-                )
 
-            }
 
         </>
     )
